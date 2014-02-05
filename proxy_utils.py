@@ -1,6 +1,8 @@
 import re
+import itertools
 import requests
 from silent_threading import SilentThreadPool
+from utils import first
 
 
 def read_proxies(file_path):
@@ -8,6 +10,7 @@ def read_proxies(file_path):
         lines = (line.strip() for line in f.readlines())
         lines = (line.split(':') for line in lines if line)
         lines = (line for line in lines if line[0] and len(line) == 2)
+        lines = (first(v) for k, v in itertools.groupby(sorted(lines), lambda p: p[0]))
         lines = (line[0] + ':' + line[1] if line[1] else line[0] + ':8080' for line in lines)
         return set(lines)
 
