@@ -6,7 +6,10 @@ from silent_threading import SilentThreadPool
 def read_proxies(file_path):
     with open(file_path) as f:
         lines = (line.strip() for line in f.readlines())
-        return set(line for line in lines if line)
+        lines = (line.split(':') for line in lines if line)
+        lines = (line for line in lines if line[0] and len(line) == 2)
+        lines = (line[0] + ':' + line[1] if line[1] else line[0] + ':8080' for line in lines)
+        return set(lines)
 
 
 def write_proxies(file_path, proxies):
