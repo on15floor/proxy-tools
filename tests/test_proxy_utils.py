@@ -24,4 +24,4 @@ class TestReadProxies(TestCase):
             f.write('\n'.join(proxies))
         result = read_proxies(file)
         os.remove(file)
-        self.assertEqual(expected, sorted(result))
+        self.assertEqual(expected, result)
