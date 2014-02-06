@@ -1,6 +1,8 @@
 import re
 import itertools
+
 import requests
+
 from silent_threading import SilentThreadPool
 from utils import first
 
@@ -49,11 +51,6 @@ class ProxyManager():
             self._executor.shutdown(wait=wait)
 
 
-def proxy_grab(link):
-    try:
-        response = requests.get(link)
-        proxies = re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,4})', response.text,
-                             re.DOTALL)
-        return proxies
-    except:
-        return
+def parse_proxy(text: str) -> list:
+    return re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,4})', text,
+                      re.DOTALL)
