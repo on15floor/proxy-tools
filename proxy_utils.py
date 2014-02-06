@@ -1,3 +1,4 @@
+from _collections_abc import Iterable
 import re
 import itertools
 
@@ -16,7 +17,7 @@ def read_proxies(file_path):
         return [line[0] + ':' + line[1] if line[1] else line[0] + ':8080' for line in lines]
 
 
-def write_proxies(file_path, proxies):
+def write_proxies(file_path: str, proxies: Iterable):
     with open(file_path, 'w') as f:
         f.write('\n'.join(proxies))
 
