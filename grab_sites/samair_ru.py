@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from proxy_utils import proxy_grab
+from proxy_utils import parse_proxy
 
 
 def grab_page(num_page):
@@ -9,11 +9,12 @@ def grab_page(num_page):
     html = BeautifulSoup(response.text)
     div = html.find("div", {"id": "ipportonly"})
     link = div.contents[3].attrs.get('href')
-    return proxy_grab("http://www.samair.ru" + link)
+    text = requests.get("http://www.samair.ru" + link).text
+    return parse_proxy(text)
 
 
-def grab():
-    print('[i]Grab samir.ru...')
+def grab_proxies():
+    print('[i]Grab samir.ru:')
     proxies = []
 
     for i in range(1, 31):
