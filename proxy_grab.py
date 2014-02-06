@@ -1,14 +1,21 @@
 from grab_sites import hideme_ru, samair_ru, gatherproxy_com
+from proxy_utils import write_proxies
 
 proxies = []
 
+functions = [
+    hideme_ru.grab_proxies,
+    samair_ru.grab_proxies,
+    gatherproxy_com.grab_proxies
+]
 
-result = hideme_ru.grab()
-proxies += result
-result = samair_ru.grab()
-proxies += result
-result = gatherproxy_com.grab()
-proxies += result
+for func in functions:
+    result = None
+    try:
+        result = func()
+        if result:
+            proxies += result
+    except Exception as e:
+        print(e)
 
-with open('source.txt', 'a') as f:
-    f.write('\n'.join(proxies))
+write_proxies('source.txt', proxies)
