@@ -14,11 +14,10 @@ def grab_page(num_page):
 
 
 def grab_proxies():
-    print('[i]Grab samir.ru:')
     proxies = []
 
     for i in range(1, 31):
-        print('[i]Grab samir.ru [Page: {}]'.format(i))
+        print('[i]->Samair.ru page: {}'.format(i))
         proxies += grab_page(i)
 
     return proxies
