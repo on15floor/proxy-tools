@@ -4,7 +4,6 @@ import requests
 
 
 def grab_proxies():
-    print('[i]Grab gatherproxy.com:')
     response = requests.get("http://gatherproxy.com/ru/subscribe/login")
     session_id_key = 'ASP.NET_SessionId'
     session_id_value = response.cookies[session_id_key]
@@ -28,9 +27,9 @@ def grab_proxies():
                              data=data, headers=headers, cookies=cookies, allow_redirects=True)
 
     if 'Logout' not in response.text:
-        raise Exception('[e]Can\'t Login')
+        raise Exception('[e]->Can\'t Login')
     if 'LOGIN' not in response.text:
-        print('[+]Login success, Start grab')
+        print('[+]->Login success')
 
     html = BeautifulSoup(response.text)
     link = html.select('a[href^="/proxylist/downloadproxylist/?sid="]')[0]['href']
@@ -53,5 +52,5 @@ def ask_google(question):
     html = BeautifulSoup(response.text)
     answer = html.find("h2", {"class": "r"}).text.split('=')[1].strip()
 
-    print('[i]Google:' + g_search + '=' + answer)
+    print('[i]->Google:' + g_search + '=' + answer)
     return answer
