@@ -1,4 +1,4 @@
-from grab_sites import hideme_ru, samair_ru, gatherproxy_com
+from grab_sites import hideme_ru, samair_ru, gatherproxy_com, shroomery_org
 from proxy_utils import write_proxies
 
 proxies = []
@@ -6,7 +6,8 @@ proxies = []
 functions = [
     hideme_ru.grab_proxies,
     samair_ru.grab_proxies,
-    gatherproxy_com.grab_proxies
+    gatherproxy_com.grab_proxies,
+    shroomery_org.grab_proxies
 ]
 
 for func in functions:
