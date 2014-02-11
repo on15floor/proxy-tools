@@ -1,5 +1,5 @@
 from grab_sites import gatherproxy_com, shroomery_org, hideme_ru, samair_ru, freeproxy_ch, proxy_list_org, \
-    proxylife_org, fineproxy_org, xroxy_com, seprox_ru
+    proxylife_org, fineproxy_org, xroxy_com, seprox_ru, therealist_ru
 from proxy_utils import write_proxies
 
 proxies = []
@@ -14,7 +14,8 @@ functions = [
     proxylife_org.grab_proxies,
     fineproxy_org.grab_proxies,
     xroxy_com.grab_proxies,
-    seprox_ru.grab_proxies
+    seprox_ru.grab_proxies,
+    therealist_ru.grab_proxies
 ]
 
 for func in functions:
