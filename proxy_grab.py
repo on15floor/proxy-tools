@@ -15,7 +15,7 @@ functions = [
     fineproxy_org.grab_proxies,
     xroxy_com.grab_proxies,
     seprox_ru.grab_proxies,
-    therealist_ru.grab_proxies
+    therealist_ru.grab_proxies,
 ]
 
 for func in functions:
