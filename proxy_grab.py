@@ -1,6 +1,7 @@
 from grab_sites import gatherproxy_com, shroomery_org, hideme_ru, samair_ru, freeproxy_ch, proxy_list_org, \
     proxylife_org, fineproxy_org, xroxy_com, seprox_ru, therealist_ru
 from proxy_utils import write_proxies
+from utils import notify
 
 proxies = []
 
@@ -30,3 +31,4 @@ for func in functions:
         print(e)
 
 write_proxies('source.txt', proxies)
+notify('[{}] Finished'.format(__file__))
