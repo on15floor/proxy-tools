@@ -1,4 +1,6 @@
 from datetime import datetime
+import platform
+import subprocess
 import webbrowser
 
 
@@ -13,3 +15,9 @@ def open_in_browser(text):
     with open(temp_file, 'w') as html:
         html.write(text)
     webbrowser.open_new_tab(temp_file)
+
+
+def notify(message):
+    if 'Ubuntu' in str(platform.dist()):
+        subprocess.Popen(['notify-send', message])
+        return
