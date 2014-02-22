@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 import platform
 import subprocess
 import webbrowser
@@ -20,4 +21,4 @@ def open_in_browser(text):
 def notify(message):
     if 'Ubuntu' in str(platform.dist()):
         subprocess.Popen(['notify-send', message])
-        return
+        os.system("/usr/bin/canberra-gtk-play --id='message'")
