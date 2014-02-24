@@ -22,3 +22,5 @@ def notify(message):
     if 'Ubuntu' in str(platform.dist()):
         subprocess.Popen(['notify-send', message])
         os.system("/usr/bin/canberra-gtk-play --id='message'")
+    if 'LinuxMint' in str(platform.dist()):
+        subprocess.Popen(['notify-send', message])
