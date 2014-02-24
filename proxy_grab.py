@@ -40,7 +40,7 @@ def fast_grab():
     sites = ["http://russianproxy.ru/proxy_list_http_fastest",
              "http://proxy.ipcn.org/proxylist2.html",
              "http://chingachgook.net/servisy/proxy",
-             "http://proxy.ipcn.org/proxyb2.html",
+             "http://proxyserver-list.blogspot.ru/",
              "http://www.x-scripts.com/proxy.php",
              "http://vps.rosinstrument.com/proxy/l100.xml",
              "http://www.cybersyndrome.net/pla5.html?guid=ON",
