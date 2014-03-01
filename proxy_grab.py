@@ -1,6 +1,6 @@
 import requests
 from grab_sites import gatherproxy_com, hideme_ru, samair_ru, proxy_list_org, proxylife_org, xroxy_com, seprox_ru, \
-    nntime_com, ip_adress_com, echolink_org
+    nntime_com, ip_adress_com, echolink_org, foxtools_ru
 from proxy_utils import write_proxies, parse_proxy
 from utils import notify
 
@@ -18,6 +18,7 @@ def full_grab():
         nntime_com.grab_proxies,
         ip_adress_com.grab_proxies,
         echolink_org.grab_proxies,
+        foxtools_ru.grab_proxies(),
     ]
 
     for func in functions:
