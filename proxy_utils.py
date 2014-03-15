@@ -1,5 +1,6 @@
 import re
 import itertools
+from bs4 import BeautifulSoup
 
 import requests
 
@@ -25,7 +26,7 @@ class ProxyException(Exception):
     pass
 
 
-def check_anonymity(proxy, timeout=1):
+def check_anonymity_http(proxy, timeout=1):
     proxies = {"http": "http://{}".format(proxy)}
     response = requests.get("http://fh7915ko.bget.ru/ip.php", proxies=proxies, timeout=timeout)
     if response.status_code != 200:
@@ -35,15 +36,34 @@ def check_anonymity(proxy, timeout=1):
     return proxy
 
 
+def check_anonymity_https(proxy, timeout=1):
+    proxies = {"https": "https://{}".format(proxy)}
+    response = requests.get("https://wtfismyip.com/text", proxies=proxies, timeout=timeout)
+    if response.status_code != 200:
+        raise ProxyException('Bad proxy')
+    if response.text.strip() != proxy.split(':')[0]:
+        raise ProxyException('Bad anonymity')
+    return proxy
+
+
 class ProxyManager():
-    def __init__(self):
+    def __init__(self, proxy_type):
         self._executor = None
+        self.proxy_type = proxy_type
 
     def check_anonymity_parallel(self, proxies, max_workers=4):
-        with SilentThreadPool(max_workers) as self._executor:
-            for result in self._executor.map(check_anonymity, proxies):
-                if result:
-                    yield result
+        if self.proxy_type == 'http':
+            with SilentThreadPool(max_workers) as self._executor:
+                for result in self._executor.map(check_anonymity_http, proxies):
+                    if result:
+                        yield result
+        elif self.proxy_type == 'https':
+            with SilentThreadPool(max_workers) as self._executor:
+                for result in self._executor.map(check_anonymity_https, proxies):
+                    if result:
+                        yield result
+        else:
+            raise ProxyException('Choose type of proxy first')
 
     def stop(self, wait=False):
         if self._executor:

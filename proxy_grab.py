@@ -5,7 +5,11 @@ from proxy_utils import write_proxies, parse_proxy
 from utils import notify
 
 
+proxy_count = 0
+
+
 def full_grab():
+    global proxy_count
     proxies = []
     functions = [
         hideme_ru.grab_proxies,
@@ -18,7 +22,7 @@ def full_grab():
         nntime_com.grab_proxies,
         ip_adress_com.grab_proxies,
         echolink_org.grab_proxies,
-        foxtools_ru.grab_proxies(),
+        foxtools_ru.grab_proxies,
     ]
 
     for func in functions:
@@ -27,8 +31,9 @@ def full_grab():
             result_func = func()
             if result_func:
                 proxies += result_func
+                proxy_count += len(result_func)
                 print('[+]Proxy from site:{}, Total:{}'.format(str(len(result_func)).zfill(5),
-                                                               str(len(proxies)).zfill(5)))
+                                                               str(proxy_count).zfill(5)))
         except Exception as e:
             print(e)
     proxies += fast_grab()
@@ -37,11 +42,10 @@ def full_grab():
 
 
 def fast_grab():
+    global proxy_count
     proxies = []
     sites = ["http://russianproxy.ru/proxy_list_http_fastest",
-             "http://proxy.ipcn.org/proxylist2.html",
              "http://chingachgook.net/servisy/proxy",
-             "http://proxyserver-list.blogspot.ru/",
              "http://www.x-scripts.com/proxy.php",
              "http://vps.rosinstrument.com/proxy/l100.xml",
              "http://www.cybersyndrome.net/pla5.html?guid=ON",
@@ -53,19 +57,22 @@ def fast_grab():
              "http://anonimsurfer.info/export/hzteam-yAMUO5uy4CKnA7Ka7cSa7k5ihMpA5a/0/s/types=http",
              "http://www.cool-tests.com/anon-elite-proxy.php",
              "http://fineproxy.org/%D1%81%D0%B2%D0%B5%D0%B6%D0%B8%D0%B5-%D0%BF%D1%80%D0%BE%D0%BA%D1%81%D0%B8/",
-             "http://www.freeproxy.ch/proxy.txt",
              "http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php",
              "http://www.shroomery.org/ythan/proxylist.php",
              "http://www.therealist.ru/proksi/spisok-anonimnyx-i-elitnyx-proksi",
              "http://www.cybersyndrome.net/pla5.html",
-             "http://www.cybersyndrome.net/plr5.html"]
+             "http://www.cybersyndrome.net/plr5.html",
+             "http://tophacksavailable.blogspot.ru/"]
 
     for site in sites:
         print('[i]Site:{}'.format(site))
         proxies_from_site = parse_proxy(requests.get(site).text)
-        proxies += proxies_from_site
-        print('[+]Proxy from site:{}, Total:{}'.format(str(len(proxies_from_site)).zfill(5),
-                                                       str(len(proxies)).zfill(5)))
+        if len(proxies_from_site) != 0:
+            proxies += proxies_from_site
+            proxy_count += len(proxies_from_site)
+            print('[+]Proxy from site:{}, Total:{}'.format(str(len(proxies_from_site)).zfill(5), str(proxy_count).zfill(5)))
+        else:
+            print('[-]SITE ERROR: {}'.format(site))
 
     return proxies
 
