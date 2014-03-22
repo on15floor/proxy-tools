@@ -1,9 +1,10 @@
-from datetime import datetime
+import datetime
 import os
 import platform
 import subprocess
 import webbrowser
 import sys
+import time
 
 
 def first(iterable):
@@ -13,7 +14,7 @@ def first(iterable):
 
 
 def open_in_browser(text):
-    temp_file = 'temp_{}.html'.format(datetime.now().timestamp())
+    temp_file = 'temp_{}.html'.format(time.time())
     with open(temp_file, 'w') as html:
         html.write(text)
     webbrowser.open_new_tab(temp_file)
@@ -35,15 +36,36 @@ def bold(msg):
     return u'\033[1m%s\033[0m' % msg
 
 
-def progress_bar(current, total, good):
-    bar_size = 50
-    amount = int(current / (total / float(bar_size)))
-    remain = bar_size - amount
-    bar = '{}\{}'.format('=' * amount, '.' * remain)
-    bad = current - good
-    sys.stdout.write('\rProgress:  {}/{} [{}] Good: {} Bad: {}'.format(bold(current),
-                                                                       bold(total),
-                                                                       bar,
-                                                                       bold(color('32', str(good))),
-                                                                       bold(color('31', str(bad)))))
-    sys.stdout.flush()
+class ProgressBar():
+    def __init__(self):
+        self.current = 0
+        self.total = 0
+        self.good = 0
+        self.start_time = time.time()
+        self.bar_size = 30
+
+    def draw(self):
+        amount = int(self.current / (self.total / float(self.bar_size)))
+        remain = self.bar_size - amount
+
+        current = str(self.current).zfill(len(str(self.total)))
+        bar = '{}>{}'.format('=' * amount, '.' * remain)
+        bad = str(self.current - self.good).zfill(len(str(self.total)))
+        good = str(self.good).zfill(len(str(self.total)))
+        time_exec = int(time.time()-self.start_time)
+        if self.current != 0:
+            time_total = int((self.total*time_exec)/self.current)
+        else:
+            time_total = 999
+        time_remaining = time_total-time_exec
+        sys.stdout.write("\r")
+        sys.stdout.write('Progress: {}/{} [{}] Good: {} Bad: {} |TIME Exec: {} Remaining: {}|'.format(
+            bold(current),
+            bold(self.total),
+            bar,
+            bold(color('32', str(good))),
+            bold(color('31', str(bad))),
+            bold(color('34', str(datetime.timedelta(seconds=time_exec)))),
+            bold(color('33', str(datetime.timedelta(seconds=time_remaining)))),
+        ))
+        sys.stdout.flush()
