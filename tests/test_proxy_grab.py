@@ -34,7 +34,7 @@ class ProgressBar():
             time_total = 999
         time_remaining = time_total-time_exec
         sys.stdout.write("\r")
-        sys.stdout.write('Progress: {}/{} [{}] Good: {} Bad: {} |TIME Exec: {} Remaining: {}|'.format(
+        sys.stdout.write('Progress: {}/{} [{}] Good: {} Bad: {} |Runtime: {} Remaining: {}|'.format(
             bold(current),
             bold(self.total),
             bar,
