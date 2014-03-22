@@ -1,9 +1,6 @@
 import re
 import itertools
-from bs4 import BeautifulSoup
-
 import requests
-
 from silent_threading import SilentThreadPool
 from utils import first
 
@@ -26,7 +23,7 @@ class ProxyException(Exception):
     pass
 
 
-def check_anonymity_http(proxy, timeout=1):
+def check_anonymity_http(proxy, timeout=3):
     proxies = {"http": "http://{}".format(proxy)}
     response = requests.get("http://fh7915ko.bget.ru/ip.php", proxies=proxies, timeout=timeout)
     if response.status_code != 200:
@@ -71,5 +68,4 @@ class ProxyManager():
 
 
 def parse_proxy(text: str) -> list:
-    return re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,4})', text,
-                      re.DOTALL)
+    return re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,4})', text, re.DOTALL)

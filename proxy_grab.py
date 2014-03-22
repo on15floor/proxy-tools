@@ -62,7 +62,8 @@ def fast_grab():
              "http://www.therealist.ru/proksi/spisok-anonimnyx-i-elitnyx-proksi",
              "http://www.cybersyndrome.net/pla5.html",
              "http://www.cybersyndrome.net/plr5.html",
-             "http://tophacksavailable.blogspot.ru/"]
+             "http://tophacksavailable.blogspot.ru/",
+             "http://www.proxylists.net/http_highanon.txt"]
 
     for site in sites:
         print('[i]Site:{}'.format(site))
