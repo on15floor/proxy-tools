@@ -2,7 +2,7 @@ import requests
 from grab_sites import gatherproxy_com, hideme_ru, samair_ru, proxy_list_org, proxylife_org, xroxy_com, seprox_ru, \
     nntime_com, ip_adress_com, echolink_org, foxtools_ru
 from proxy_utils import write_proxies, parse_proxy
-from utils import notify
+from utils import *
 
 
 proxy_count = 0
@@ -32,12 +32,14 @@ def full_grab():
             if result_func:
                 proxies += result_func
                 proxy_count += len(result_func)
-                print('[+]Proxy from site:{}, Total:{}'.format(str(len(result_func)).zfill(5),
-                                                               str(proxy_count).zfill(5)))
+                print('{}Proxy from site:{}, Total:{}'.format(bold(color('32', str('[+]'))),
+                                                              str(len(result_func)).zfill(5),
+                                                              str(proxy_count).zfill(5)))
+            else:
+                print('{}: {}'.format(bold(color('31', str('[-]No proxy from:'))), func.__module__))
         except Exception as e:
             print(e)
     proxies += fast_grab()
-
     return proxies
 
 
@@ -71,9 +73,11 @@ def fast_grab():
         if len(proxies_from_site) != 0:
             proxies += proxies_from_site
             proxy_count += len(proxies_from_site)
-            print('[+]Proxy from site:{}, Total:{}'.format(str(len(proxies_from_site)).zfill(5), str(proxy_count).zfill(5)))
+            print('{}Proxy from site:{}, Total:{}'.format(bold(color('32', str('[+]'))),
+                                                          str(len(proxies_from_site)).zfill(5),
+                                                          str(proxy_count).zfill(5)))
         else:
-            print('[-]SITE ERROR: {}'.format(site))
+            print('{}: {}'.format(bold(color('31', str('[-]No proxy from:'))), site))
 
     return proxies
 
