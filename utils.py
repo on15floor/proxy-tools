@@ -69,3 +69,24 @@ class ProgressBar():
             bold(color('33', str(datetime.timedelta(seconds=time_remaining)))),
         ))
         sys.stdout.flush()
+
+
+def read_list(file):
+    with open(file) as f:
+        return [line.strip() for line in f.readlines()]
+
+
+def write_list_a(file: str, some_list: list):
+    if len(some_list) != 0:
+        with open(file, 'a') as f:
+            f.write('\n'.join(some_list))
+    else:
+        print('[e]List is Nool')
+
+
+def write_list_w(file: str, some_list: list):
+    if len(some_list) != 0:
+        with open(file, 'w') as f:
+            f.write('\n'.join(some_list))
+    else:
+        print('[e]List is Nool')
