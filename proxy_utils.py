@@ -2,7 +2,7 @@ import re
 import itertools
 import requests
 from silent_threading import SilentThreadPool
-from utils import first
+from utils import *
 
 
 def read_proxies(file_path):
@@ -34,8 +34,8 @@ def check_anonymity_http(proxy, timeout=3):
 
 
 def check_anonymity_https(proxy, timeout=1):
-    proxies = {"https": "https://{}".format(proxy)}
-    response = requests.get("https://wtfismyip.com/text", proxies=proxies, timeout=timeout)
+    proxies = {"https": "http://{}".format(proxy)}
+    response = requests.get("https://wtfismyip.com/text", proxies=proxies, verify=False, timeout=timeout)
     if response.status_code != 200:
         raise ProxyException('Bad proxy')
     if response.text.strip() != proxy.split(':')[0]:
