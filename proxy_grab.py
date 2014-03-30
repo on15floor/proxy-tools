@@ -1,6 +1,6 @@
 import requests
 from grab_sites import gatherproxy_com, hideme_ru, samair_ru, proxy_list_org, proxylife_org, xroxy_com, seprox_ru, \
-    nntime_com, ip_adress_com, echolink_org, foxtools_ru
+    nntime_com, ip_adress_com, echolink_org, foxtools_ru, speedtest_at
 from proxy_utils import write_proxies, parse_proxy
 from utils import *
 
@@ -23,6 +23,7 @@ def full_grab():
         ip_adress_com.grab_proxies,
         echolink_org.grab_proxies,
         foxtools_ru.grab_proxies,
+        speedtest_at.grab_proxies,
     ]
 
     for func in functions:
@@ -60,12 +61,14 @@ def fast_grab():
              "http://www.cool-tests.com/anon-elite-proxy.php",
              "http://fineproxy.org/%D1%81%D0%B2%D0%B5%D0%B6%D0%B8%D0%B5-%D0%BF%D1%80%D0%BE%D0%BA%D1%81%D0%B8/",
              "http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php",
-             "http://www.shroomery.org/ythan/proxylist.php",
              "http://www.therealist.ru/proksi/spisok-anonimnyx-i-elitnyx-proksi",
              "http://www.cybersyndrome.net/pla5.html",
              "http://www.cybersyndrome.net/plr5.html",
              "http://tophacksavailable.blogspot.ru/",
-             "http://www.proxylists.net/http_highanon.txt"]
+             "http://www.proxylists.net/http_highanon.txt",
+             "http://proxylists.net/http_highanon.txt",
+             "http://anonimsurfer.profikom.ru/?proxy_list",
+             "http://www.shroomery.org/ythan/proxylist.txt"]
 
     for site in sites:
         print('[i]Site:{}'.format(site))

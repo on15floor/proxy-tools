@@ -2,7 +2,7 @@ from proxy_utils import *
 from utils import *
 
 proxies = read_proxies('source.txt')
-proxy_type = 'http'
+proxy_type = 'https'
 proxy_manager = ProxyManager(proxy_type)
 
 l = []
