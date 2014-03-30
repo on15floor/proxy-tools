@@ -6,22 +6,15 @@ import requests
 
 
 def grab_proxies():
+    proxies = []
     data = {
         'freeDownload': 'Скачать бесплатную версию'
     }
-
     headers = {
         'Content_Type': 'application/x-www-form-urlencoded'
     }
-
     response = requests.post("http://seprox.ru/download.php",
                              data=data, headers=headers, allow_redirects=False)
-
-
-    # with open("tmp.zip", "wb") as f:
-    #     f.write(response.content)
-
-    proxies = []
 
     zip_web = BytesIO(response.content)
     zip_f = ZipFile(zip_web, 'r')
@@ -31,6 +24,7 @@ def grab_proxies():
     zip_f.close()
 
     return [proxy.decode().strip() for proxy in proxies]
+
 
 def key_brute():
     while True:

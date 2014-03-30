@@ -7,9 +7,8 @@ def grab_proxies():
     html = BeautifulSoup(''.join(response.text))
     tag_proxies = html.findAll("tr")
     proxies = []
-    for i in range(3, tag_proxies.__len__()):
+    for i in range(3, len(tag_proxies)):
         if 'Ready' in tag_proxies[i].text:
-            proxies += [
-                '{}:{}'.format(tag_proxies[i].text.split('\n')[2].strip(), tag_proxies[i].text.split('\n')[3]).strip()]
-
+            proxies.append('{}:{}'.format(tag_proxies[i].text.split('\n')[2].strip(),
+                                          tag_proxies[i].text.split('\n')[3]).strip())
     return proxies
