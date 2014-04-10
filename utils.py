@@ -43,7 +43,7 @@ class ProgressBar():
         self.good = 0
         self.start_time = time.time()
         self.bar_size = 30
-        self.type = '' #IDE, Terminal
+        self.work_in_ide = True
 
     def draw(self):
         amount = int(self.current / (self.total / float(self.bar_size)))
@@ -59,7 +59,7 @@ class ProgressBar():
         else:
             time_total = 999
         time_remaining = time_total-time_exec
-        if self.type == 'Terminal':
+        if self.work_in_ide == False:
             if os.name == "posix":
                 os.system('clear')
             elif os.name in ("nt", "dos", "ce"):

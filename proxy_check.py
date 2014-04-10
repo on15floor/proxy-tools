@@ -7,7 +7,7 @@ proxy_manager = ProxyManager(proxy_type)
 
 l = []
 pb = ProgressBar()
-pb.type = 'Terminal'
+pb.work_in_ide = False
 pb.total = len(proxies)
 
 for proxy in proxy_manager.check_anonymity_parallel(proxies, 50):
