@@ -34,7 +34,7 @@ def check_anonymity_http(proxy, timeout=3):
 
 
 def check_anonymity_https(proxy, timeout=1):
-    proxies = {"https": "http://{}".format(proxy)}
+    proxies = {"https": "https://{}".format(proxy)}
     response = requests.get("https://wtfismyip.com/text", proxies=proxies, verify=False, timeout=timeout)
     if response.status_code != 200:
         raise ProxyException('Bad proxy')

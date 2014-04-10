@@ -2,11 +2,12 @@ from proxy_utils import *
 from utils import *
 
 proxies = read_proxies('source.txt')
-proxy_type = 'https'
+proxy_type = 'http'
 proxy_manager = ProxyManager(proxy_type)
 
 l = []
 pb = ProgressBar()
+pb.type = 'Terminal'
 pb.total = len(proxies)
 
 for proxy in proxy_manager.check_anonymity_parallel(proxies, 50):
