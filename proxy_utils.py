@@ -14,26 +14,25 @@ def read_proxies(file_path):
         return [line[0] + ':' + line[1] if line[1] else line[0] + ':8080' for line in lines]
 
 
-def write_proxies(file_path: str, proxies):
-    with open(file_path, 'w') as f:
-        f.write('\n'.join(proxies))
-
-
 class ProxyException(Exception):
     pass
 
 
 def check_anonymity_http(proxy, timeout=3):
     proxies = {"http": "http://{}".format(proxy)}
-    response = requests.get("http://fh7915ko.bget.ru/ip.php", proxies=proxies, timeout=timeout)
+    response = requests.get("http://checkip.amazonaws.com", proxies=proxies, timeout=timeout)
     if response.status_code != 200:
+        print(f'[-]{proxy}')
         raise ProxyException('Bad proxy')
-    if response.text != proxy.split(':')[0]:
+    if response.text.strip() != proxy.split(':')[0]:
+        print(f'[-]{proxy}')
         raise ProxyException('Bad anonymity')
+    else:
+        print(f'[+]{proxy}')
     return proxy
 
 
-def check_anonymity_https(proxy, timeout=1):
+def check_anonymity_https(proxy, timeout=3):
     proxies = {"https": "https://{}".format(proxy)}
     response = requests.get("https://wtfismyip.com/text", proxies=proxies, verify=False, timeout=timeout)
     if response.status_code != 200:
@@ -62,10 +61,6 @@ class ProxyManager():
         else:
             raise ProxyException('Choose type of proxy first')
 
-    def stop(self, wait=False):
-        if self._executor:
-            self._executor.shutdown(wait=wait)
 
-
-def parse_proxy(text: str) -> list:
+def parse_proxies(text: str) -> list:
     return re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3}):(?:[\d]{1,4})', text, re.DOTALL)
