@@ -1,7 +1,7 @@
 import requests
 from grab_sites import nntime_com, ip_adress_com, echolink_org, foxtools_ru
 from proxy_utils import parse_proxies
-from utils import read_list
+from utils import read_list, SilentException
 
 proxy_count = 0
 
@@ -21,7 +21,7 @@ def full_grab():
                 print(f'[+]Proxy from site:{str(len(result_func)).zfill(5)}, Total:{str(proxy_count).zfill(5)}')
             else:
                 print(f'[-]No proxy from:{func.__module__}')
-        except Exception as e:
+        except SilentException as e:
             print(e)
     proxies += fast_grab()
     return proxies
@@ -30,7 +30,7 @@ def full_grab():
 def fast_grab():
     global proxy_count
     proxies = []
-    sites = read_list('f_sites.txt')
+    sites = read_list('sites.txt')
 
     for site in sites:
         print(f'[i]Site:{site}')
@@ -42,7 +42,7 @@ def fast_grab():
                 print(f'[+]Proxy from site:{str(len(proxies_from_site)).zfill(5)}, Total:{str(proxy_count).zfill(5)}')
             else:
                 print(f'[-]No proxy from: {site}')
-        except:
-            print(f'[-]Dead Site: {site}')
+        except SilentException as e:
+            print(f'[-]Dead Site: {site}', e)
 
     return proxies

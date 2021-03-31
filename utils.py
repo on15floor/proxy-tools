@@ -1,6 +1,3 @@
-import os
-import platform
-import subprocess
 import webbrowser
 import time
 
@@ -18,14 +15,6 @@ def open_in_browser(text):
     webbrowser.open_new_tab(temp_file)
 
 
-def notify(message):
-    if 'Ubuntu' in str(platform.dist()):
-        subprocess.Popen(['notify-send', message])
-        os.system("/usr/bin/canberra-gtk-play --id='message'")
-    if 'LinuxMint' in str(platform.dist()):
-        subprocess.Popen(['notify-send', message])
-
-
 def read_list(file):
     with open(file) as f:
         return [line.strip() for line in f.readlines()]
@@ -36,7 +25,7 @@ def write_list_a(file: str, some_list: list):
         with open(file, 'a') as f:
             f.write('\n'.join(some_list))
     else:
-        print('[e]List is Nool')
+        print('[e]List is empty')
 
 
 def write_list_w(file: str, some_list: list):
@@ -44,4 +33,8 @@ def write_list_w(file: str, some_list: list):
         with open(file, 'w') as f:
             f.write('\n'.join(some_list))
     else:
-        print('[e]List is Nool')
+        print('[e]List is empty')
+
+
+class SilentException(Exception):
+    pass
